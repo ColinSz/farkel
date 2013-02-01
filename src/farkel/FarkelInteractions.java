@@ -2,22 +2,25 @@ package farkel;
 
 import javax.swing.*;
 import java.util.ArrayList;
+import java.awt.FlowLayout;
 
 public class FarkelInteractions {
     //use default constructor
 
-    JFrame frame;
-
+    private static JFrame frame = new JFrame("Farkel");
+    
     public FarkelInteractions()
     {
-        frame = new JFrame("Farkel v1.6 Cupcake");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLocation(200,200);
-        frame.setSize(600,600);
-        frame.setVisible(true);
+
     }
 
-    public boolean introduction(){
+    public static boolean introduction(){
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLayout(new FlowLayout());
+        frame.setLocation(200,200);
+        frame.setSize(800,600);
+        frame.setVisible(true);
+        
     boolean result = (JOptionPane.showConfirmDialog(null,
              "Welcome to Farkel! In this game, you race\n"
             + "to 10,000 points by rolling dice and\n"
@@ -27,11 +30,11 @@ public class FarkelInteractions {
     return result;
 }
 
-    public void showRules(){
+    public static void showRules(){
         JOptionPane.showMessageDialog(null, "yep these are the rules");
     }
 
-    public ArrayList howManyPlayers(){
+    public static ArrayList howManyPlayers(){
 
         ArrayList players = new ArrayList();
         boolean continueMakingPlayers = true;
@@ -49,11 +52,13 @@ public class FarkelInteractions {
                 playerList += (playerID + " ");
             }
         }
-
+        JPanel listOfPlayers = new JPanel();
+        listOfPlayers.setLayout(new FlowLayout());
         JLabel labelPlayerList = new JLabel(playerList);
-
-        frame.getContentPane().add(labelPlayerList);
-
+        listOfPlayers.add(labelPlayerList);
+        
+        frame.add(listOfPlayers);
+        frame.repaint();
         return players;
 
     }

@@ -6,11 +6,10 @@ import java.util.ArrayList;
 public class FarkelMain {
 
     public static void main(String[] args) {
-        FarkelInteractions messages = new FarkelInteractions();
-        if(messages.introduction())
-            messages.showRules();
+        if(FarkelInteractions.introduction())
+            FarkelInteractions.showRules();
         
-        ArrayList players = messages.howManyPlayers();
+        ArrayList players = FarkelInteractions.howManyPlayers();
         
         
     }
