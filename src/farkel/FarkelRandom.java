@@ -7,9 +7,9 @@ public class FarkelRandom {
     
     Random generator = new Random();
     
-    public int[] generateRoll(int numberOfDiceRolled){
-        int[] result = new int[5];
-        for(int i = 0; numberOfDiceRolled != 0; numberOfDiceRolled--)
+    public int[] generateRoll(int numberOfDiceToRoll){
+        int[] result = new int[numberOfDiceToRoll];
+        for(int i = 0; numberOfDiceToRoll != 0; numberOfDiceToRoll--)
         {
             result[i] = generator.nextInt(5);
             i++;
