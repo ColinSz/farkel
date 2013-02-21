@@ -41,11 +41,6 @@ public class FarkelInteractions {
             System.out.println(playerID[i][1]);
         }
     }
-
-    public static runFrame(){
-        Frame party = new Frame();
-        party
-    }
     
     public static boolean introduction(){
         
@@ -96,10 +91,10 @@ public class FarkelInteractions {
             }
         }
         
-        initalizePlayerTable();
-        initalizeControls();
-        frame.add(myDice);
-        reinitializeGUI();
+        //initalizePlayerTable();
+        //initalizeControls();
+        //frame.add(myDice);
+        //reinitializeGUI();
 
         return players;
 

@@ -5,6 +5,8 @@ import java.awt.*;
 
 public class DicePanel extends JPanel {
     
+    private int numberDiceDisplayed = 6;
+    
     public DicePanel(){
         setBounds(0, 0, 600, 600);
         setPreferredSize(new Dimension(600, 600));
@@ -16,23 +18,25 @@ public class DicePanel extends JPanel {
         Graphics2D g2d = (Graphics2D)g;
         
         g2d.setColor(Color.WHITE);
-        
-        g2d.fillRect(5, 5, 100, 100);           //first dice
-        g2d.fillRect(125, 5, 100, 100);         //second dice
-        g2d.fillRect(125, 125, 100, 100);       //third dice
-        g2d.fillRect(5, 125, 100, 100);         //fourth dice
-        g2d.fillRect(245, 5, 100, 100);         //fifth dice
-        g2d.fillRect(245, 125, 100, 100);       //sixth dice
+        for(int i = numberDiceDisplayed - 1; i >= 0; i--) {
+            if(i<3)
+                g2d.fillRect(5+75*i, 5, 50, 50);
+            else
+                g2d.fillRect(5+75*(i-3), 75, 50, 50);
+        }
         
         g2d.setColor(Color.BLACK);
-        
-        g2d.drawRect(5, 5, 100, 100);           //first dice
-        g2d.drawRect(125, 5, 100, 100);         //second dice
-        g2d.drawRect(125, 125, 100, 100);       //third dice
-        g2d.drawRect(5, 125, 100, 100);         //fourth dice
-        g2d.drawRect(245, 5, 100, 100);         //fifth dice
-        g2d.drawRect(245, 125, 100, 100);       //sixth dice
-        
+        for(int i = numberDiceDisplayed - 1; i >=0; i--) {
+            if(i<3)
+                g2d.drawRect(5+75*i, 5, 50, 50);
+            else
+                g2d.drawRect(5+75*(i-3), 75, 50, 50);
+        }
         
     }
+    
+    public void setNumberOfDice(int newNumber){
+        numberDiceDisplayed = newNumber;
+    }
+    
 }
