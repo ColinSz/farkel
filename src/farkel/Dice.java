@@ -11,8 +11,30 @@ package farkel;
 public class Dice {
     
     int value = 0;
+    boolean isBanked = false;
     
     public Dice(int newValue){
-        if()
+        value = newValue;
+    }
+    
+    public int getValue(){
+        return value;
+    }
+    
+    public void setValue(int valueNew){
+        value = valueNew;
+    }
+    
+    public boolean isBanked(){
+        return isBanked;
+    }
+    
+    public void setBanked(boolean isStored){
+        isBanked = isStored;
+    }
+    
+    public void resetDice(){
+        isBanked = false;
+        value = 1;
     }
 }
