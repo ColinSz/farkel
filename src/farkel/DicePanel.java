@@ -90,11 +90,11 @@ public class DicePanel extends JPanel {
             g2d.fillOval(xStart+35, yStart+35, 10, 10);
         }
         else if(diceValue == 5){
-            g2d.fillOval(xStart+5, yStart+6, 10, 10);
-            g2d.fillOval(xStart+5, yStart+36, 10, 10);
+            g2d.fillOval(xStart+5, yStart+5, 10, 10);
+            g2d.fillOval(xStart+5, yStart+35, 10, 10);
             g2d.fillOval(xStart+20, yStart+20, 10, 10);
-            g2d.fillOval(xStart+35, yStart+6, 10, 10);
-            g2d.fillOval(xStart+35, yStart+36, 10, 10);
+            g2d.fillOval(xStart+35, yStart+5, 10, 10);
+            g2d.fillOval(xStart+35, yStart+35, 10, 10);
         }
         else if(diceValue == 6){
             g2d.fillOval(xStart+5, yStart+5, 10, 10);
@@ -107,7 +107,7 @@ public class DicePanel extends JPanel {
 
     }
     
-    private void reDraw(){
+    public void reDraw(){
         removeAll();
         revalidate();
         repaint();

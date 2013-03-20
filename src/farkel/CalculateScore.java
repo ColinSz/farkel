@@ -14,6 +14,8 @@ public class CalculateScore {
 	return(ret);
     }
     
+    
+    //returns integer array of format score, then each dice. If dice is 0, then not scored.
     public static int[] calculateScore(int[] roll){
         int[] rollToSend = {0,0,0,0,0,0};
         int i = 0;
@@ -24,9 +26,9 @@ public class CalculateScore {
          
         rollToSend = main(rollToSend);
         return rollToSend;
-        
     }
     
+    //returns integer array of format score, then each dice. If dice is 0, then scored. If dice is 1, then not scored.
     public static int[] main(int[] roll){
         /*int roll[] = {0,0,0,0,0,0};
         Scanner userInput = new Scanner(System.in);
@@ -216,7 +218,8 @@ public class CalculateScore {
     {
 	score=0;
     }
-    System.out.println(score);
+   // System.out.println(score);
+    //System.out.println(" " + dice[0] + " " + dice[1]+ " " + dice[2] + " " + dice[3] + " " + dice[4] + " " + dice[5]);
     
     int returnStuff[] = {score, dice[0], dice[1], dice[2], dice[3], dice[4], dice[5]}; 
     return returnStuff;

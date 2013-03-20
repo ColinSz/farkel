@@ -5,7 +5,7 @@ public class FarkelPlayer {
     
     private String playerName;
     private int scoreTotal = 0;
-    private int scoreThisRound = 0;
+    boolean endgameDone = false;
     
     public FarkelPlayer(String playerID){
         playerName = playerID;
@@ -19,4 +19,22 @@ public class FarkelPlayer {
         FarkelRandom.generateRoll(numberToRoll);
         return FarkelRandom.generateRoll(numberToRoll);
     }
+    
+    public int getScoreTotal(){
+        return scoreTotal;
+    }
+    
+    public void setScoreTotal(int newScoreTotal){
+        scoreTotal = newScoreTotal;
+    }
+    
+    public void setEndgameDone(boolean valueNew) {
+        endgameDone = valueNew;
+    }
+    
+    public boolean getEndgameDone(){
+        return endgameDone;
+    }
+        
+    
 }
