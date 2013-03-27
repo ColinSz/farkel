@@ -20,6 +20,8 @@ public class myFrame extends javax.swing.JFrame{
     private static int playerScore = 0;
     private static int playerScoreRollPrevious = 0;
     private static boolean endgame = false;
+    private static boolean[] diceLastStored = {false, false, false, false, false, false};
+    private static int scoreLastStore = 0;
     
     public myFrame(){
        boolean result = (JOptionPane.showConfirmDialog(null,
@@ -68,10 +70,6 @@ public class myFrame extends javax.swing.JFrame{
 
     private static void showRules(){
         JOptionPane.showMessageDialog(null, "yep these are the rules");
-    }
-    
-    public static void RemoveDiceButtonStatus(boolean status){
-        jButton2.setEnabled(status);
     }
     
     @SuppressWarnings("unchecked")
@@ -353,20 +351,25 @@ public class myFrame extends javax.swing.JFrame{
         myDice[i-1].setBanked(!myDice[i-1].isBanked());
         jPanel1.reDraw();
         
+        //diceLastStored[i-1] = myDice[i-1].isBanked();
         for(int j = 0; j <= 5; j++){
-            if(myDice[j].isBanked())
+            if(myDice[j].isBanked() && (!diceLastStored[j]))
                 diceToScore[j] = myDice[j].getValue();
+            else
+                diceToScore[j] = 0;
         }
         
         boolean diceSelected = false;
         for(int j = 0; j <=5; j++){
-            diceSelected = diceSelected || myDice[j].isBanked();
+            diceSelected = diceSelected | (!(diceLastStored[j]) && myDice[j].isBanked());
         }
-        
         jButton3.setEnabled(diceSelected);
-            
-        playerScoreThisRound = CalculateScore.calculateScore(diceToScore)[0] + playerScoreRollPrevious;
+        
+        playerScoreThisRound = CalculateScore.calculateScore(diceToScore)[0]
+                + playerScoreRollPrevious + scoreLastStore;
         jPanel2.updateScoreThisRound(playerScoreThisRound);
+        System.out.println(CalculateScore.calculateScore(diceToScore)[0] + " "
+                + playerScoreRollPrevious + scoreLastStore);
     } 
 
     //Roll button pressed
@@ -376,19 +379,32 @@ public class myFrame extends javax.swing.JFrame{
         //if all die are banked
         if(myDice[0].isBanked() && myDice[1].isBanked() && myDice[2].isBanked() &&
             myDice[3].isBanked() && myDice[4].isBanked() && myDice[5].isBanked()) {
-            myDice[0].setBanked(false);
-            myDice[1].setBanked(false);
-            myDice[2].setBanked(false);
-            myDice[3].setBanked(false);
-            myDice[4].setBanked(false);
-            myDice[5].setBanked(false);
+            diceReset();
         }
+        else{
+            for(int i = 0; i <= 5; i++){
+                diceLastStored[i] = myDice[i].isBanked();
+            }
+            if(myDice[0].isBanked() | myDice[1].isBanked() | myDice[2].isBanked() |
+                myDice[3].isBanked() | myDice[4].isBanked() | myDice[5].isBanked()){
+                int[] scoreThis = {0,0,0,0,0,0};
+                for(int i = 0; i<= 5; i++){
+                    if(diceLastStored[i])
+                        scoreThis[i] = 0;
+                    else
+                        scoreThis[i] = myDice[i].getValue();
+                }
+                System.out.println("here!");
+                scoreLastStore += CalculateScore.calculateScore(scoreThis)[0];
+                System.out.println(scoreLastStore);
+                }
+            }
                 
         int numberOfDiceRolled = 6;
         
         int[] tempArray = playerCurrent.rollDie(numberOfDiceRolled);
         for(int i = 0; i <= 5; i++){
-            if(!myDice[i].isBanked) 
+            if(!myDice[i].isBanked()) 
                 myDice[i].setValue(tempArray[i]);
             else
                 tempArray[i] = myDice[i].getValue();
@@ -415,16 +431,24 @@ public class myFrame extends javax.swing.JFrame{
             turnEnd(true);
             jLabel5.setVisible(true);
         }
+        
+        //diceLastStored = diceCanBeRemoved;
+        
+        jButton3.setEnabled(false);
     }        
         
-    private void diceResetNotBanked(){
-        for(int i = 0; i < myDice.length; i++)
+    @SuppressWarnings("empty-statement")
+    private void diceReset(){
+        for(int i = 0; i < myDice.length; i++){
             myDice[i].setBanked(false);
+        }
+        
+        diceLastStored = new boolean[]{false, false, false, false, false, false};
     }
     
     private void turnEnd(boolean farkle){
-        diceResetNotBanked();
-
+        diceReset();
+        
         System.out.println("turnEnd " + playerScore + " " + playerScoreThisRound);
         playerCurrent.setScoreTotal(playerScore + playerScoreThisRound);
         if(playerCurrent.getScoreTotal() > 10000){
@@ -471,6 +495,7 @@ public class myFrame extends javax.swing.JFrame{
             playerScore = playerCurrent.getScoreTotal();
             playerScoreThisRound = 0;
             playerScoreRollPrevious = 0;
+            scoreLastStore = 0;
         
             jPanel2.updateScoreThisRound(0);
             jPanel2.updateScoreBeforeRound(playerScore);

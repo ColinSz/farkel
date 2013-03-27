@@ -1,4 +1,4 @@
 farkel
 ======
 
-A Java version of Farkel, built for my AP CS class with a couple of friends!
+This is a Java app of the popular dice game Farkel, built by myself and a couple of friends for our AP Computer Science. Besides CalculateScore.class, the code is primarily written by me.

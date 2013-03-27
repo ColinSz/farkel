@@ -10,8 +10,8 @@ package farkel;
  */
 public class Dice {
     
-    int value = 0;
-    boolean isBanked = false;
+    private int value = 0;
+    private boolean isBanked = false;
     
     public Dice(int newValue){
         value = newValue;
