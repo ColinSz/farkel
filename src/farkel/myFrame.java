@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.*;
 import java.awt.Color;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseEvent;
 
 public class myFrame extends javax.swing.JFrame{
 
@@ -101,7 +103,7 @@ public class myFrame extends javax.swing.JFrame{
         jProgressBar3 = new javax.swing.JProgressBar();
         jLabel4 = new javax.swing.JLabel();
         jProgressBar4 = new javax.swing.JProgressBar();
-        jPanel1 = new DicePanel(myDice);
+        jPanel1 = new DicePanel(myDice, this);
         jSeparator1 = new javax.swing.JSeparator();
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -112,7 +114,7 @@ public class myFrame extends javax.swing.JFrame{
         
         jComboBox1 = new javax.swing.JComboBox();
         
-        jPanel1.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+        //jPanel1.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
         
         jFormattedTextField1.setEditable(false);
         jFormattedTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -369,7 +371,7 @@ public class myFrame extends javax.swing.JFrame{
                 + playerScoreRollPrevious + scoreLastStore;
         jPanel2.updateScoreThisRound(playerScoreThisRound);
         System.out.println(CalculateScore.calculateScore(diceToScore)[0] + " "
-                + playerScoreRollPrevious + scoreLastStore);
+                + playerScoreRollPrevious + " " + scoreLastStore);
     } 
 
     //Roll button pressed
@@ -444,6 +446,38 @@ public class myFrame extends javax.swing.JFrame{
         }
         
         diceLastStored = new boolean[]{false, false, false, false, false, false};
+    }
+    
+    public void setDiceBankedFlip(int diceNumber){
+        //myDice[diceNumber].setBanked(!myDice[diceNumber].isBanked());
+        System.out.println("jPanelPressed");
+        
+        int[] diceToScore = {0,0,0,0,0,0};
+        
+        //int i = (Integer)jComboBox1.getSelectedItem();
+        System.out.println(diceNumber);
+        myDice[diceNumber].setBanked(!myDice[diceNumber].isBanked());
+        jPanel1.reDraw();
+        
+        //diceLastStored[i-1] = myDice[i-1].isBanked();
+        for(int j = 0; j <= 5; j++){
+            if(myDice[j].isBanked() && (!diceLastStored[j]))
+                diceToScore[j] = myDice[j].getValue();
+            else
+                diceToScore[j] = 0;
+        }
+        
+        boolean diceSelected = false;
+        for(int j = 0; j <=5; j++){
+            diceSelected = diceSelected | (!(diceLastStored[j]) && myDice[j].isBanked());
+        }
+        jButton3.setEnabled(diceSelected);
+        
+        playerScoreThisRound = CalculateScore.calculateScore(diceToScore)[0]
+                + playerScoreRollPrevious + scoreLastStore;
+        jPanel2.updateScoreThisRound(playerScoreThisRound);
+        System.out.println(CalculateScore.calculateScore(diceToScore)[0] + " "
+                + playerScoreRollPrevious + " " + scoreLastStore);
     }
     
     private void turnEnd(boolean farkle){
